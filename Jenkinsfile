@@ -12,7 +12,8 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://hub.docker.com/repository/docker/parshuram2504/dope') {
-                        def dope = docker.build("parshuram2504/dope:${env.BUILD_NUMBER}")
+
+                        def dope = docker.build("parshuram2504/dope:${env.BUILD_NUMBER}", "-f Docker/Dockerfile .")
                         dope.push()
                         dope.push("latest")
                     }
