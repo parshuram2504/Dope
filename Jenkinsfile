@@ -11,7 +11,7 @@ pipeline {
         stage('Build and Push') {
     steps {
         script {
-            docker.withRegistry('https://index.docker.io/v1/') {
+            docker.withRegistry('https://index.docker.io/v1/', 'jenkins_docker') {
                 def image = docker.build("parshuram2504/dope:${env.BUILD_NUMBER}", "-f Docker/Dockerfile .")
                 image.push()
                 image.push('latest')
