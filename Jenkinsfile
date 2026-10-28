@@ -9,17 +9,16 @@ pipeline {
         }
 
         stage('Build and Push') {
-            steps {
-                script {
-                    docker.withRegistry('https://hub.docker.com/repository/docker/parshuram2504/dope') {
-
-                        def dope = docker.build("parshuram2504/dope:${env.BUILD_NUMBER}", "-f Docker/Dockerfile .")
-                        dope.push()
-                        dope.push("latest")
-                    }
-                }
+    steps {
+        script {
+            docker.withRegistry('https://hub.docker.com/u/parshuram2504') {
+                def image = docker.build("parshuram2504/dope:${env.BUILD_NUMBER}", "-f Docker/Dockerfile .")
+                image.push()
+                image.push('latest')
             }
         }
+    }
+}
     }
 
     post {
