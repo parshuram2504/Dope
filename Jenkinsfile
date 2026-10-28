@@ -8,19 +8,10 @@ pipeline {
         }
     }
         stage('Build') {
-            steps {
-                sh 'echo "Building the docker image"'
-                sh 'cd Docker'
-                sh 'docker build -t Dope .'
-                // Add your build commands here
+            docker.withRegistry('https://hub.docker.com/repository/docker/parshuram2504/dope') {
+                def dope = docker.build("dope:${env.BUILD_ID}")
+                dope.push()
             }
         }
-        stage('Tag image') {
-            steps {
-                sh 'echo "Tagging the docker image"'
-                sh 'docker tag Dope parshuram2504/dope:latest'
-                sh 'docker push parshuram2504/dope:latest'
-                // Add your tag commands here
-            }
-        }
+        
 }
