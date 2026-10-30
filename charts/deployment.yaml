@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dope-deployment
+  labels:
+    app: dope
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dope
+  template:
+    metadata:
+      labels:
+        app: dope
+    spec:
+      containers:
+      - name: dope
+        image: parshuram2504/dope:11
+        ports:
+        - containerPort: 80
